@@ -3,7 +3,9 @@ import static java.lang.Math.max;
 public class day4 {
 
     public static void main(String[] args) {
-        int[] money = {1,2,3,4};
+//        int[] money = {1,3,4,1};
+//        int[] money = {11,0,2,5,100,100,85,1}; // 198
+        int[] money = {1000,1,0,1,2,1000,0}; // 2001
         System.out.printf(String.valueOf(Solution.solution(money)));
     }
 }
@@ -11,65 +13,22 @@ public class day4 {
 class Solution {
     public static int solution(int[] money) {
         int answer = 0;
-        int sum1 = 0;
-        int sum2 = 0;
-        boolean gap = false;
+        int l = money.length;
+        int[] dp1 = money;
+        int[] dp2 = money;
 
         // sum1
-        for(int i=0; i<money.length-1;){
-            if(i==0) {
-                sum1+=money[i];
-                i+=1;
-                continue;
-            }
-
-            if(i==money.length-2){
-                if(!gap){
-                    sum1+=money[i];
-                }
-                gap = false;
-                break;
-            }
-
-            if(money[i] > money[i+1] && !gap){
-                sum1 += money[i];
-                i+=1;
-                gap = true;
-            }else{
-                sum1 += money[i+1];
-                i+=2;
-                gap = false;
-            }
-       }
-
-        //sum2
-        for(int i=1; i<money.length;i++){
-            if(i==1) {
-                sum2+=money[i];
-                i+=1;
-                continue;
-            }
-
-            if(i==money.length-1){
-                if(!gap){
-                    sum2+=money[i];
-                }
-                gap = false;
-                break;
-            }
-
-            if(money[i] > money[i+1] && !gap){
-                sum2 += money[i];
-                i+=1;
-                gap = true;
-            }else{
-                sum2 += money[i+1];
-                i+=2;
-                gap = false;
-            }
+        for(int i=2; i<l-1;i++){
+            dp1[i] =  max(dp1[i-2]+money[i],dp1[i-1]);
         }
 
-        answer = max(sum1,sum2);
+        System.out.printf("dp1="+dp1[l-1]+"\n");
+
+        for(int i=3; i<l;i++){
+            dp2[i] =  max(dp2[i-2]+money[i],dp2[i-1]);
+        }
+
+        answer = max(dp1[l-1],dp2[l-1]);
 
         return answer;
     }
