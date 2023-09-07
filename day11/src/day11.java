@@ -1,13 +1,29 @@
+import java.util.Arrays;
+
 public class day11 {
+    /* 뒤에서부터 큰 수 찾기 */
     public static void main(String[] args) {
-        Solution so = new Solution();
-        int[][] arr = {{1,0,1,1,1},{1,0,1,0,1},{1,0,1,1,1},{1,1,1,0,1},{0,0,0,0,1}};
-        so.solution(arr);
+        int[] numbers = {1,2,3,4,5};
+        solution(numbers);
     }
-}
-class Solution {
-    public int[] solution(int n, int[] info) {
-        int[] answer = {};
+
+    public static int[] solution(int numbers[]) {
+        int numbers_len = numbers.length;
+        int[] answer = new int[numbers_len];
+
+        Arrays.fill(answer, -1);
+
+        for (int i=0; i<numbers_len; i++) {
+            for (int j=i+1; j<numbers_len; j++) {
+                if (numbers[i] < numbers[j]) {
+                    answer [i] = numbers[j];
+                    break;
+                }
+            }
+        }
+
+        Arrays.stream(answer).forEach(System.out::println);
+
         return answer;
     }
 }
