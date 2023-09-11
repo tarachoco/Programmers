@@ -6,7 +6,10 @@ public class day14 {
         int result = solution(people, 100);
         System.out.printf("result="+result);
     }
-
+    /*
+        해당 코드는 두명이 타는 경우, 한명이 타는 경우를 분기 처리했다.
+        people에서 두명이 타는 경우를 빼면 이는 한명이 타는 케이스임을 인지하자.
+     */
     public static int solution(int[] people, int limit) {
         int answer = 0;
 
