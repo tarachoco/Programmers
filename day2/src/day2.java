@@ -12,8 +12,11 @@ public class day2 {
             bottom-up 방식으로 변경 필요
          */
 
-        int[][] triangle ={{7},{3,8},{8,1,0},{2,7,4,4},{4,5,2,6,5}};
-        System.out.printf(String.valueOf(Solution.solution(triangle)));
+
+
+
+//        int[][] triangle ={{7},{3,8},{8,1,0},{2,7,4,4},{4,5,2,6,5}};
+//        System.out.printf(String.valueOf(Solution.solution(triangle)));
     }
 }
 
