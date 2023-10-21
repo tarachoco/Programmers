@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class Main {
+public class day12 {
     /*
         이중우선순위큐
         https://school.programmers.co.kr/learn/courses/30/lessons/42628?language=java
