@@ -15,39 +15,54 @@ public class day46 {
 
     public static int[] solution(String msg) {
         int[] answer = null;
-        Map<String, Integer> dictionary = new HashMap<>();
-        List<Integer> indexList = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        List<String> dictionary = new ArrayList<>();
 
-        // 사전 초기화
-        int cnt=0;
         for (char i='A'; i<='Z'; i++) {
-            dictionary.put(String.valueOf(i), ++cnt);
+            dictionary.add(String.valueOf(i));
         }
 
-        int i=0;
+        for (int i = 0; i < msg.length(); i++) {
+            // dictionary 데이터 가공용
+            StringBuilder sb = new StringBuilder(String.valueOf(msg.charAt(i)));
 
-        while (i<msg.length()) {
-            int offset = msg.length();
-            boolean isIndexed = true;
+            if (i == msg.length() - 1) {
+                list.add(dictionary.indexOf(sb.toString()));
+                break;
+            }
 
-            String str = msg.substring(i, offset);
-            while (!dictionary.containsKey(str)) {
-                offset--;
-                str = msg.substring(i, offset);
+            String c = String.valueOf(msg.charAt(i + 1));
 
-                if (i+1 == offset) {
-                    isIndexed = false;
+            while (dictionary.contains(sb + c)) {
+
+                sb.append(c);
+                i++;
+
+                if (i == msg.length() - 1 || c.equals("")) {
+                    c = "";
+                    break;
                 }
+
+                c = String.valueOf(msg.charAt(i + 1));
             }
 
-            if (isIndexed) {
-                dictionary.put(msg.substring(i,i+2), dictionary.size()+1);
-                dictionary.put(msg.substring(i, offset), dictionary.size()+1);
+            if (!dictionary.contains(sb + c)) {
+                dictionary.add(sb + c);
             }
 
-            indexList.add(dictionary.get(msg.substring(i, offset)));
-            i+=offset;
+            int x = dictionary.indexOf(sb.toString());
+            if (x != -1) {
+                list.add(x);
+            }
+
+            if (i == msg.length() - 1 && !c.equals("")) {
+                list.add(dictionary.indexOf(c));
+            }
         }
+
+        answer = list.stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
 
         return answer;
     }
