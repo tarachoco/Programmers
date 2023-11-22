@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class day48 {
     /*
@@ -13,26 +14,33 @@ public class day48 {
 
     public static String solution(String[] survey, int[] choices) {
         String answer = "";
-        int[] results = new int[4];
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        int m = 4;
 
         for (int i=0; i<survey.length; i++) {
 
-            int score = ScoreInfo.getScoreById(choices[i]);
-
-            if (score == 0) {
-                continue;
-            } else if (score > 0) {
-                results[getPosition(survey[i].charAt(1))] += score;
+            if (choices[i] == m) {
+            } else if (choices[i] > m) {
+                map.put(survey[i].charAt(1), map.getOrDefault(survey[i].charAt(1),0)+choices[i]-m);
             } else {
-                results[getPosition(survey[i].charAt(0))] += score;
+                map.put(survey[i].charAt(0), map.getOrDefault(survey[i].charAt(0),0)+m-choices[i]);
             }
 
         }
 
+        StringBuilder sb = new StringBuilder();
+        sb.append(map.getOrDefault('R',0) >= map.getOrDefault('T',0) ? "R" : "T");
+        sb.append(map.getOrDefault('C',0) >= map.getOrDefault('F',0) ? "C" : "F");
+        sb.append(map.getOrDefault('J',0) >= map.getOrDefault('M',0) ? "J" : "M");
+        sb.append(map.getOrDefault('A',0) >= map.getOrDefault('N',0) ? "A" : "N");
+
+        answer = sb.toString();
+
         return answer;
     }
 
-    public static int getPosition(char s) {
+    public static int getScore(char s) {
         switch (s) {
             case 'R':
             case 'T':
@@ -50,36 +58,5 @@ public class day48 {
                 break;
         }
         return -1;
-    }
-
-    public static enum ScoreInfo {
-        TRD_DEC (1, -3),
-        SEC_DEC (2, -2),
-        FST_DEC (3, -1),
-        MAINTENANCE (4, 0),
-        FST_INC (5, 1),
-        SEC_INC (6, 2),
-        TRD_INC (7, 3),
-        ;
-
-        private int id;
-        private int score;
-
-        ScoreInfo(int id, int score) {
-            this.id = id;
-            this.score = score;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public int getScore() {
-            return score;
-        }
-
-        public static int getScoreById(int id) {
-            return Arrays.stream(ScoreInfo.values()).filter(s -> s.getId() == id).findAny().get().getScore();
-        }
     }
 }
