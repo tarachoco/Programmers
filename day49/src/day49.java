@@ -1,7 +1,7 @@
 public class day49 {
     /*
         멀리 뛰기
-        https://school.programmers.co.kr/learn/courses/30/lessons/72410
+        https://school.programmers.co.kr/learn/courses/30/lessons/12914
      */
     public static void main(String[] args) {
         System.out.println(solution(4));
