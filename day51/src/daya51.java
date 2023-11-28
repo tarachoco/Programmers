@@ -19,30 +19,19 @@ public class daya51 {
         for (int i=0; i<priorities.length; i++) {
             queue.add(priorities[i]);
         }
-
         int i=0;
         int l=0;
-
         while (true) {
-
             int poll = queue.poll();
-
             if (queue.stream().filter(q->q > poll).findAny().orElse(0) > 0) {
                 queue.offer(poll);
             } else {
                 queue.offer(0);
                 i++;
-                if (l==location) {
-                    return i;
-                }
+                if (l==location) return i;
             }
-
             l++;
-
-            if (l>=priorities.length) {
-                l=0;
-            }
-
+            if (l>=priorities.length) l=0;
         }
     }
 }
