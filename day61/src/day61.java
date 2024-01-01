@@ -53,10 +53,14 @@ public class day61 {
                 dfs(child, sales);
                 /*
                     TODO : 최소비용 계산
+                    팀원 참여 안 하는 경우 : 팀장도 참여 안 하면 최소값 적재
+                    팀원 참여 하는 경우 : 팀장 참여 안 하면 다른 팀의 팀원이 참여함 고려
                  */
                 dp[x][0] += dp[child][1];
                 dp[x][1] += Math.min(dp[child][0], dp[child][1]);
             }
         }
+
+        // dp[x][0] 참여 안 할 때 최소값 적재
     }
 }
