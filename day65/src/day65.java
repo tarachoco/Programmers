@@ -107,6 +107,7 @@ public class day65 {
         int mountain = Integer.MAX_VALUE;
         int min = Integer.MAX_VALUE;
 
+        // 봉우리 번호 더 작은 거 가져와야 하므로 정렬
         Arrays.sort(summits);
 
         // 가중치가 최소인 산봉우리 경로를 가져온다.
