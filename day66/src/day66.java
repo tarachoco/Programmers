@@ -65,7 +65,7 @@ public class day66 {
             }
 
             for (int linked : graph[node.index]) {
-                if (!visited[linked]) {
+                if (!visited[linked] && result[source] < node.count) {
                     visited[linked] = true;
                     queue.offer(new Node(linked, node.count+1));
                 }
