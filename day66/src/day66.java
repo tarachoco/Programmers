@@ -55,9 +55,14 @@ public class day66 {
         queue.offer(new Node(source, 0));
         boolean[] visited = new boolean[n+1];
         visited[source] = true;
+        
 
         while (!queue.isEmpty()){
             Node node = queue.poll();
+
+            if (result[source] >= node.count) {
+                break;
+            }
 
             if (node.index == destination) {
                 result[source] = node.count;
@@ -65,13 +70,14 @@ public class day66 {
             }
 
             for (int linked : graph[node.index]) {
-                if (!visited[linked] && result[source] < node.count) {
-                    visited[linked] = true;
+
+                if (result[source] > node.count) {
+//                if (!visited[linked] && result[source] < node.count) {
+//                    visited[linked] = true;
                     queue.offer(new Node(linked, node.count+1));
                 }
             }
         }
-
     }
 
     public static class Node {
