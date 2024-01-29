@@ -90,10 +90,8 @@ public class day66 {
         }
     }
 
-    /*
-        dfs 풀이 코드
-        시간 초과로 실패
-     */
+//        dfs 풀이 코드
+//        시간 초과로 실패
 //    static boolean[] visited;
 //	static List<Integer>[] graph;
 //	static int[] dp;
