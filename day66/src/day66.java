@@ -28,7 +28,8 @@ public class day66 {
         int[] answer = new int[sources.length];
         graph = new ArrayList[n+1];
         result = new int[n+1];
-        Arrays.fill(result, -1);
+
+        Arrays.fill(result, Integer.MAX_VALUE);
 
         for (int i=0 ;i<n+1; i++) {
             graph[i] = new ArrayList<>();
@@ -39,59 +40,76 @@ public class day66 {
             graph[road[1]].add(road[0]);
         }
 
-        Queue<Integer> queue = new LinkedList<>();
+        dijkstra( destination );
 
-        for (int i=0; i<sources.length; i++) {
-            bfs( n, sources[i], destination);
-            answer[i] = result[sources[i]];
+        for (int i = 0; i < sources.length; i++) {
+            answer[i] = (result[sources[i]] < Integer.MAX_VALUE) ? result[sources[i]] : -1;
         }
-
         return answer;
     }
 
-    public static void bfs (int n, int source, int destination) {
+    private static void dijkstra(int destination) {
+        Queue<Integer> qu = new LinkedList<>();
+        qu.add(destination);
+        result[destination] = 0;
 
-        Queue<Node> queue = new LinkedList<>();
-        queue.offer(new Node(source, 0));
-        boolean[] visited = new boolean[n+1];
-        visited[source] = true;
-        
+        while (!qu.isEmpty()){
+            int node = qu.poll();
 
-        while (!queue.isEmpty()){
-            Node node = queue.poll();
-
-            if (result[source] >= node.count) {
-                break;
-            }
-
-            if (node.index == destination) {
-                result[source] = node.count;
-                break;
-            }
-
-            for (int linked : graph[node.index]) {
-
-                if (result[source] > node.count) {
-//                if (!visited[linked] && result[source] < node.count) {
-//                    visited[linked] = true;
-                    queue.offer(new Node(linked, node.count+1));
+            for(int i=0; i<graph[node].size(); i++){
+                int linked = graph[node].get(i);
+                if(result[linked] > result[node]+1){
+                    result[linked] = result[node]+1;
+                    qu.add(linked);
                 }
             }
         }
     }
 
-    public static class Node {
-        int index;
-        int count;
+//    public static void bfs (int n, int source, int destination) {
+//
+//        Queue<Node> queue = new LinkedList<>();
+//        queue.offer(new Node(source, 0));
+//        boolean[] visited = new boolean[n+1];
+//        visited[source] = true;
+//
+//
+//        while (!queue.isEmpty()){
+//            Node node = queue.poll();
+//
+//            if (result[source] >= node.count) {
+//                break;
+//            }
+//
+//            if (node.index == destination) {
+//                result[source] = node.count;
+//                break;
+//            }
+//
+//            for (int linked : graph[node.index]) {
+//
+//                if (!visited[linked] && result[source] < node.count) {
+//                    visited[linked] = true;
+//                    queue.offer(new Node(linked, node.count+1));
+//                }
+//            }
+//        }
+//    }
 
-        Node (int index, int count) {
-            this.index = index;
-            this.count = count;
-        }
-    }
+//    public static class Node {
+//        int index;
+//        int count;
+//
+//        Node (int index, int count) {
+//            this.index = index;
+//            this.count = count;
+//        }
+//    }
 
-//        dfs 풀이 코드
-//        시간 초과로 실패
+    /*
+        dfs 풀이 코드
+        시간 초과로 실패
+     */
 //    static boolean[] visited;
 //	static List<Integer>[] graph;
 //	static int[] dp;
