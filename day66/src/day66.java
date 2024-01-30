@@ -40,6 +40,7 @@ public class day66 {
             graph[road[1]].add(road[0]);
         }
 
+        // 목적지에서 한번만 돌린다.
         dijkstra( destination );
 
         for (int i = 0; i < sources.length; i++) {
