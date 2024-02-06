@@ -35,10 +35,15 @@ public class day68 {
 		}
 
         for (int i=1; i<graph.length; i++) {
+            int count = 0;
             for (int j=1; j<graph[0].length; j++) {
                 if (graph[i][j] && graph[j][i]) {
-                    answer++;
+                    count++;
                 }
+            }
+
+            if (count == n - 1) {
+                answer++;
             }
         }
 
