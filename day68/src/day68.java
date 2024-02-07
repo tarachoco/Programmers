@@ -29,16 +29,16 @@ public class day68 {
 				for (int j = 1; j <= n; j++) {
 					if (graph[i][k] == 1 && graph[k][j] == 1) {
                         graph[i][j] = 1;
-                        graph[i][j] = -1;
+                        graph[j][i] = -1;
                     }
 				}
 			}
 		}
 
         // 자신을 제외한 경쟁자들과의 승패를 알 수 있어야 순위를 매길 수 있음.
-        for (int i=0; i<=n; i++) {
+        for (int i=1; i<=n; i++) {
             int count = 0;
-            for (int j=0; j<=n; j++) {
+            for (int j=1; j<=n; j++) {
                 if (graph[i][j] != 0) {
                     count++;
                 }
@@ -76,20 +76,18 @@ public class day68 {
 				for (int j = 1; j <= n; j++) {
 					if (graph[i][k] && graph[k][j]) {
                         graph[i][j] = true;
-                    }
-
-                    if (!graph[i][k] && !graph[k][j]) {
-                        graph[i][j] = true;
+                    } else if (graph[j][k] && graph[k][i]) {
+                        graph[j][i] = true;
                     }
 				}
 			}
 		}
 
         // 자신을 제외한 경쟁자들과의 승패를 알 수 있어야 순위를 매길 수 있음.
-        for (int i=0; i<=n; i++) {
+        for (int i=1; i<=n; i++) {
             int count = 0;
-            for (int j=0; j<=n; j++) {
-                if (graph[i][j]) {
+            for (int j=1; j<=n; j++) {
+                if (graph[i][j] || graph[j][i]) {
                     count++;
                 }
             }
