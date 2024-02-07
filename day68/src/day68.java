@@ -9,10 +9,58 @@ public class day68 {
         int[][] results = {{4, 3}, {4, 2}, {3, 2}, {1, 2}, {2, 5}};
         int n = 5;
 
-        System.out.printf(""+solution(n, results));
+        System.out.printf(""+solution2(n, results));
     }
 
     public static int solution(int n, int[][] results) {
+        int answer = 0;
+        int[][] graph = new int[n+1][n+1];
+
+        for (int[] result : results) {
+            graph[result[0]][result[1]] = 1;
+            graph[result[1]][result[0]] = -1;
+        }
+
+        // 경유지
+		for (int k = 1; k <= n; k++) {
+			// 출발지
+			for (int i = 1; i <= n; i++) {
+				//도착지
+				for (int j = 1; j <= n; j++) {
+					if (graph[i][k] == 1 && graph[k][j] == 1) {
+                        graph[i][j] = 1;
+                        graph[i][j] = -1;
+                    }
+				}
+			}
+		}
+
+        // 자신을 제외한 경쟁자들과의 승패를 알 수 있어야 순위를 매길 수 있음.
+        for (int i=0; i<=n; i++) {
+            int count = 0;
+            for (int j=0; j<=n; j++) {
+                if (graph[i][j] != 0) {
+                    count++;
+                }
+            }
+
+            if (count == n - 1) {
+                answer++;
+            }
+        }
+
+//        graph = new int[n+1][n+1];
+//        for (int i=0; i<graph.length; i++) {
+//            Arrays.fill(graph[i], Integer.MAX_VALUE);
+//        }
+//
+//        // 플로이드 와샬 수행
+//        floyd(n);
+//
+        return answer;
+    }
+
+    public static int solution2(int n, int[][] results) {
         int answer = 0;
         boolean[][] graph = new boolean[n+1][n+1];
 
@@ -26,18 +74,22 @@ public class day68 {
 			for (int i = 1; i <= n; i++) {
 				//도착지
 				for (int j = 1; j <= n; j++) {
-                    // boolean type
 					if (graph[i][k] && graph[k][j]) {
+                        graph[i][j] = true;
+                    }
+
+                    if (!graph[i][k] && !graph[k][j]) {
                         graph[i][j] = true;
                     }
 				}
 			}
 		}
 
-        for (int i=1; i<graph.length; i++) {
+        // 자신을 제외한 경쟁자들과의 승패를 알 수 있어야 순위를 매길 수 있음.
+        for (int i=0; i<=n; i++) {
             int count = 0;
-            for (int j=1; j<graph[0].length; j++) {
-                if (graph[i][j] && graph[j][i]) {
+            for (int j=0; j<=n; j++) {
+                if (graph[i][j]) {
                     count++;
                 }
             }
