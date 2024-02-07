@@ -49,14 +49,6 @@ public class day68 {
             }
         }
 
-//        graph = new int[n+1][n+1];
-//        for (int i=0; i<graph.length; i++) {
-//            Arrays.fill(graph[i], Integer.MAX_VALUE);
-//        }
-//
-//        // 플로이드 와샬 수행
-//        floyd(n);
-//
         return answer;
     }
 
@@ -96,15 +88,6 @@ public class day68 {
                 answer++;
             }
         }
-
-//        graph = new int[n+1][n+1];
-//        for (int i=0; i<graph.length; i++) {
-//            Arrays.fill(graph[i], Integer.MAX_VALUE);
-//        }
-//
-//        // 플로이드 와샬 수행
-//        floyd(n);
-//
         return answer;
     }
 
@@ -121,6 +104,16 @@ public class day68 {
         graph[i][j] = Math.min(graph[i][j], graph[i][k]+graph[k][j]);
 
         O^3 시간 복잡도지만 모든 경로를 다 계산할 수 있음.
+
+
+
+//        graph = new int[n+1][n+1];
+//        for (int i=0; i<graph.length; i++) {
+//            Arrays.fill(graph[i], Integer.MAX_VALUE);
+//        }
+//
+//        // 플로이드 와샬 수행
+//        floyd(n);
      */
 //    public static int floyd (int n) {
 //        int result = 0;
