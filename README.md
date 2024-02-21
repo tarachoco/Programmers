@@ -2,3 +2,6 @@
 
 https://programmers.co.kr/
 tarachoco
+
+[notion]
+- 
