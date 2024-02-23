@@ -26,6 +26,9 @@ public class day72 {
                 Album album = new Album(genres[i], plays[i], new PriorityQueue<>(new Comparator<Integer>() {
                     @Override
                     public int compare(Integer o1, Integer o2) {
+                        if (plays[o1] == plays[o2]) {
+                            return o1.compareTo(o2);
+                        }
                         return plays[o2] - plays[o1];
                     }
                 }));
@@ -35,7 +38,7 @@ public class day72 {
         }
 
         List<Album> list = map.values().stream()
-                .sorted(Comparator.comparingInt(o -> o.count))
+                .sorted(Comparator.comparingInt(Album::getCount).reversed())
                 .collect(Collectors.toList());
 
         List<Integer> answer = new ArrayList<>();
@@ -59,6 +62,10 @@ public class day72 {
             this.genre = genre;
             this.count = count;
             this.songList = songList;
+        }
+
+        public int getCount() {
+            return count;
         }
     }
 }
