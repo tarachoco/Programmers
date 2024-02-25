@@ -26,6 +26,7 @@ public class day72 {
                 Album album = new Album(genres[i], plays[i], new PriorityQueue<>(new Comparator<Integer>() {
                     @Override
                     public int compare(Integer o1, Integer o2) {
+                        // 같은 경우 고유 번호 순서 대로 정렬
                         if (plays[o1] == plays[o2]) {
                             return o1.compareTo(o2);
                         }
