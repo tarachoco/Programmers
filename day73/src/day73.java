@@ -9,7 +9,7 @@ public class day73 {
      */
     public static void main(String[] args) {
         int[][] puddles = {{2, 2}};
-        solution(4, 3, puddles);
+        System.out.printf(""+solution(4, 3, puddles));
     }
 
     static int[][] map;
@@ -27,7 +27,7 @@ public class day73 {
 
         dfs(1, 1, 0);
 
-        return min;
+        return path.get(min);
     }
 
     public static void dfs(int x, int y, int count) {
