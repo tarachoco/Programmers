@@ -3,7 +3,8 @@ import java.util.Arrays;
 public class day74 {
     /*
         단속카메라
-        https://school.programmers.co.kr/learn/courses/30/lessons/42884
+        https://school.programmers.co.kr/learn/courses/30/lessons/42884\
+        탐욕법 - 그리디 알고리즘
      */
     public static void main(String[] args) {
         int[][] routes = {{-20,-15}, {-14,-5}, {-18,-13}, {-5,-3}};
