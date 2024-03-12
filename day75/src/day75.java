@@ -14,46 +14,30 @@ public class day75 {
 
     public static int solution(int[][] jobs) {
         int answer = 0;
-        PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o.taskTime));
+        PriorityQueue<int[]> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
         Arrays.sort(jobs, Comparator.comparingInt(o -> o[0]));
 
         int time = 0;
         int taskIdx = 0;
-        int nextAvailableTime = 0;
         int cnt = 0;
 
         while(cnt < jobs.length) {
             while (taskIdx < jobs.length && jobs[taskIdx][0] <= time) {
-                queue.offer(new Node(jobs[taskIdx][0], jobs[taskIdx][1]));
-                taskIdx++;
+                queue.offer(jobs[taskIdx++]);
             }
 
             if (queue.isEmpty()) {
-                queue.offer(new Node(jobs[taskIdx][0], jobs[taskIdx][1]));
-                taskIdx++;
-            }
-
-            if (nextAvailableTime <= time) {
-                Node node = queue.poll();
+                time = jobs[taskIdx][0];
+            } else {
+                int[] task = queue.poll();
                 cnt++;
-                answer += node.taskTime + time - node.startTime;
-                nextAvailableTime = time + node.taskTime;
+                answer += task[1] + time - task[0];
+                time += task[1];
             }
 
-            time++;
         }
 
         // total time
         return (int) Math.floor(answer / jobs.length);
-    }
-
-    public static class Node {
-        int startTime;
-        int taskTime;
-
-        Node (int startTime, int taskTime) {
-            this.startTime = startTime;
-            this.taskTime = taskTime;
-        }
     }
 }
