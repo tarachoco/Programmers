@@ -19,20 +19,25 @@ public class day75 {
 
         int time = 0;
         int taskIdx = 0;
-        int nextAvailable = 0;
+        int nextAvailableTime = 0;
         int cnt = 0;
 
         while(cnt < jobs.length) {
-            while (taskIdx < jobs.length && (jobs[taskIdx][0] <= time || queue.isEmpty())) {
+            while (taskIdx < jobs.length && jobs[taskIdx][0] <= time) {
                 queue.offer(new Node(jobs[taskIdx][0], jobs[taskIdx][1]));
                 taskIdx++;
             }
 
-            if (nextAvailable <= time) {
+            if (queue.isEmpty()) {
+                queue.offer(new Node(jobs[taskIdx][0], jobs[taskIdx][1]));
+                taskIdx++;
+            }
+
+            if (nextAvailableTime <= time) {
                 Node node = queue.poll();
                 cnt++;
                 answer += node.taskTime + time - node.startTime;
-                nextAvailable = time + node.taskTime;
+                nextAvailableTime = time + node.taskTime;
             }
 
             time++;
