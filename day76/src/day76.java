@@ -16,7 +16,7 @@ public class day76 {
     }
 
     /*
-        정확성은 성공이나 효율성은 낮음.
+        정확성은 성공이나 효율성에서 실패남
         이분탐색으로 시간복잡도 단축 필요 
      */
 //    public static int solution(int n, int[] cores) {
