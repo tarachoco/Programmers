@@ -9,7 +9,7 @@ public class day77 {
         String[] words = {"hot", "dot", "dog", "lot", "log", "cog"};
     }
 
-    public int solution(String begin, String target, String[] words) {
+    public static int solution(String begin, String target, String[] words) {
         int answer = 0;
         return answer;
     }
