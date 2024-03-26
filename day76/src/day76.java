@@ -11,6 +11,8 @@ public class day76 {
 
     public static int solution(int n, int[] cores) {
         int answer = 0;
+        
+        // 마지막으로 작업을 받은 시간을 구하기 위한 변수
         int min = 0;
         int max = 10000*n;
 
@@ -19,8 +21,8 @@ public class day76 {
 
         // 이분탐색을 통해 마지막 작업을 수행하는 시간을 구한다.
         while (true) {
+            
             int mid = (min+max)/2;
-
             count = calculate(mid, cores);
 
             if (min > max) {
