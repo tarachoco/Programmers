@@ -28,6 +28,7 @@ public class day77 {
 
         Map<String, Boolean> visited = new HashMap<>();
 
+        // BFS 풀이
         while (!queue.isEmpty()) {
             Pair<String, Integer> w = queue.poll();
 
