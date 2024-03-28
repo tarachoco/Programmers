@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class day74 {
     /*
@@ -14,7 +15,7 @@ public class day74 {
 
     public static int solution(int[][] routes) {
         // 종료지점 순으로 정렬
-        Arrays.sort(routes, (o1, o2) -> o1[1] - o2[1]);
+        Arrays.sort(routes, Comparator.comparingInt(o -> o[1]));
 
         // 첫번째 종료지점
         int endPoint = routes[0][1];
