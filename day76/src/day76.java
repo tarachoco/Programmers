@@ -19,7 +19,7 @@ public class day76 {
         int time = 0;
         int count = 0;
 
-        // 이분탐색을 통해 마지막 작업을 수행하는 시간을 구한다.
+        // 이진탐색을 통해 마지막 작업을 수행하는 시간을 구한다.
         while (true) {
             
             int mid = (min+max)/2;
@@ -70,7 +70,7 @@ public class day76 {
 
     /*
         정확성은 성공이나 효율성에서 실패남
-        이분탐색으로 시간복잡도 단축 필요 
+        이진탐색으로 시간복잡도 단축 필요
      */
 //    public static int solution(int n, int[] cores) {
 //        int answer = 0;
