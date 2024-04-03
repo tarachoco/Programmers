@@ -20,11 +20,26 @@ public class day78 {
         그래프 내에 간선이 적은 희소 그래프에는 크루스칼 알고리즘
         간선이 많이 존재하는 밀집 그래프는 프림 알고리즘을 사용한다. (PQ를 사용하며 다익스트라와 유사)
      */
+    private static int[] parent;
     public static int solution(int n, int[][] costs) {
         int answer = 0;
 
 
 
         return answer;
+    }
+
+    /* UNION-FIND 합집합 찾기 */
+    public static void union(int a, int b) {
+        a = find(a);
+        b = find(b);
+        if(a != b) {
+            parent[b] = a;
+        }
+    }
+
+    public static int find(int a) {
+        if(parent[a] == a) return a;
+        else return parent[a] = find(parent[a]);
     }
 }
