@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class day78 {
     /*
@@ -23,9 +24,20 @@ public class day78 {
     private static int[] parent;
     public static int solution(int n, int[][] costs) {
         int answer = 0;
+        parent = new int[n];
 
+        for (int i = 0; i < parent.length; i++)
+            parent[i] = i;
+        // 가중치대로 정렬해야한다.
+        Arrays.sort(costs, Comparator.comparingInt(o -> o[2]));
 
-
+        for (int i = 0; i < costs.length; i++) {
+            // 부모 사이클을 판단한다.
+            if(find( costs[i][0]) != find( costs[i][1])) {
+                answer += costs[i][2];
+                union( costs[i][0], costs[i][1]);
+            }
+        }
         return answer;
     }
 
