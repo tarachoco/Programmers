@@ -53,7 +53,7 @@ public class day78 {
             parent[b] = a;
         }
     }
-
+    /* 부모 노드 찾기 */
     public static int find(int a) {
         if(parent[a] == a) return a;
         else return parent[a] = find(parent[a]);
