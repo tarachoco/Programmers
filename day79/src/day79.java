@@ -6,9 +6,11 @@ public class day79 {
      */
     public static void main(String[] args) {
 //        String[] arr = {"1", "-", "3", "+", "5", "-", "8"};
-        String[] arr = {"5", "-", "3", "+", "1", "+", "2", "-", "4"};
+//        String[] arr = {"5", "-", "3", "+", "1", "+", "2", "-", "4"};
 //        String[] arr = {"5", "+", "3", "-", "1", "+", "2", "-", "4"};
 //        String[] arr = {"1", "+", "2", "+", "3", "+", "4", "+", "5"};
+
+        String[] arr = {"5", "-", "10", "+", "1", "+", "2", "-", "4"}; // -4
         System.out.printf(""+solution(arr));
     }
 
@@ -23,6 +25,7 @@ public class day79 {
         a-b 의 최솟값 -> a는 최솟값, b는 최댓값
      */
     public static int[][][] dp;
+    public static boolean[][][] visited;
     public static int numbers[];
     public static String operations[];
 
@@ -34,6 +37,7 @@ public class day79 {
         dp = new int[2][size][size];
         numbers = new int[size];
         operations = new String[size-1];
+        visited = new boolean[2][size][size];
 
         int n1 = 0;
         int o1 = 0;
@@ -72,6 +76,12 @@ public class day79 {
             return dp[operation][start][end];
         }
 
+        if (visited[operation][start][end]) {
+            return dp[operation][start][end];
+        } else {
+            visited[operation][start][end] = true;
+        }
+
         int temp = (operation == 1) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
 
         for (int i = start; i<end; i++) {
@@ -81,7 +91,6 @@ public class day79 {
                 } else {
                     temp = Math.max(temp, calculate(1, start, i)-calculate(0,i+1,end));
                 }
-                break;
             } else {
                 if ("+".equals(operations[i])) {
                     temp = Math.min(temp, calculate(0, start, i)+calculate(0,i+1,end));
