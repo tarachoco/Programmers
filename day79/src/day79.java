@@ -36,14 +36,18 @@ public class day79 {
         int n1 = 0;
         int o1 = 0;
 
-        for (int i=0; i<arr.length; i++) {
-            if (i/2 == 0) {
+        numbers[n1++] = Integer.parseInt(arr[0]);
+
+        for (int i=1; i<arr.length; i++) {
+            if (i%2 == 0) {
                 numbers[n1++] = Integer.parseInt(arr[i]);
+//                numbers[n1++] = arr[i-1].equals("+") ? Integer.parseInt(arr[i]) : -Integer.parseInt(arr[i]);
             } else {
                 operations[o1++] = arr[i];
             }
         }
 
+        answer = calculate(Type.MAX, 0, size-1);
 
         return answer;
     }
@@ -58,32 +62,47 @@ public class day79 {
             0:minus : min
             1:plus : max
      */
-    public static int calculate(int operation, int start, int end) {
+    public static int calculate(Type operation, int start, int end) {
 
         // 마지막 숫자 하나가 선택된 경우
         if (start == end) {
-            dp[operation][start][end] = numbers[start];
-            return dp[operation][start][end];
+            dp[operation.type][start][end] = numbers[start];
+            return dp[operation.type][start][end];
         }
 
-        int temp = (operation == 0) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        int temp = (operation == Type.MAX) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
 
-        switch (operation) {
-            case 0: // minus : 최소를 구해야함
-                for (int s = start; s<end; s++) {
-                    if ("+".equals(operations[s])) {
-
-                    }
+        for (int i = start; i<end; i++) {
+            if (operation == Type.MAX) {
+                 if ("+".equals(operations[i])) {
+                    temp = Math.max(temp, calculate(Type.MAX, start, i)+calculate(Type.MAX,i+1,end));
+                } else {
+                    temp = Math.max(temp, calculate(Type.MAX, start, i)-calculate(Type.MIN,i+1,end));
                 }
                 break;
-            case 1: // plus : 최대를 구해야함
-
-                break;
+            } else {
+                if ("+".equals(operations[i])) {
+                    temp = Math.min(temp, calculate(Type.MIN, start, i)+calculate(Type.MIN,i+1,end));
+                } else {
+                    temp = Math.min(temp, calculate(Type.MIN, start, i)-calculate(Type.MAX,i+1,end));
+                }
+            }
         }
 
-        dp[operation][start][end] = temp;
+        dp[operation.type][start][end] = temp;
 
-        return 0;
+        return temp;
+    }
+
+    public static enum Type {
+        MIN (0),
+        MAX (1);
+
+        public static int type;
+
+        Type(int i) {
+
+        }
     }
 
 //    public static int solution(String arr[]) {
