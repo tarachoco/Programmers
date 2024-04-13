@@ -31,6 +31,7 @@ public class day79 {
 
     public static int solution(String arr[]) {
         int answer = -1;
+        // 숫자랑 부호 개수
         int size = arr.length/2+1;
 
         // dp 초기화
