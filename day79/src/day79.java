@@ -35,6 +35,8 @@ public class day79 {
         int size = arr.length/2+1;
 
         // dp 초기화
+        //dp[0] : 최솟값
+        //dp[1] : 최댓값
         dp = new int[2][size][size];
         numbers = new int[size];
         operations = new String[size-1];
