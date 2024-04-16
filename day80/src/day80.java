@@ -76,6 +76,7 @@ public class day80 {
         int left = 4;
         int right = 6;
 
+        // dijkstra안에서 오른쪽과 왼쪽을 비교하여 최소 가중치를 판단하자
         for (int i=0; i<numbers.length(); i++) {
             int tempLeft = dijkstra(left, numbers.charAt(i));
             int tempRight = dijkstra(right, numbers.charAt(i));
