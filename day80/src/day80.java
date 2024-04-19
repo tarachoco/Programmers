@@ -1,7 +1,4 @@
 import javafx.util.Pair;
-import jdk.nashorn.internal.ir.annotations.Ignore;
-
-import java.text.BreakIterator;
 import java.util.*;
 
 public class day80 {
@@ -25,7 +22,6 @@ public class day80 {
 
 
     static List<Pair<Integer, Integer>>[] graph;
-    static Map<Integer, Pair<Integer, Integer>> keypad;
     static int[][][] dp;
 
     public static int solution(String numbers) {
@@ -34,7 +30,6 @@ public class day80 {
 
         dp = new int[numbers.length()][13][13];
         graph = new ArrayList[13];
-        keypad = new HashMap<>();
 
         for (int i=0; i<=12; i++) {
             graph[i] = new ArrayList<>();
@@ -44,7 +39,6 @@ public class day80 {
         for (int i=0; i<=3; i++) {
             for (int j=0; j<=2; j++) {
 
-                keypad.put(key[i][j], new Pair<>(i,j));
                 graph[key[i][j]].add(new Pair<>(key[i][j], 1));
 
                 if (j-1 >= 0) {
@@ -74,11 +68,17 @@ public class day80 {
             }
         }
 
+        answer = dp(0, numbers,4, 6);
+
         return answer;
     }
 
+    /*
+        dp를 통해 왼손과 오른손을 이동 했을 때의 최소 비용을 계산하자
+     */
     public static int dp(int index, String str, int left, int right) {
 
+        // 기저 사례
         if (index == str.length()) {
             return 0;
         }
@@ -88,36 +88,59 @@ public class day80 {
             return dp[index][left][right];
         }
 
-        int cost = Integer.MAX_VALUE;
         char ch = str.charAt(index);
+        int number = ch - '0';
 
-        int number = 0;
-        if (ch == '*') {
-            number = 11;
-        } else if (ch == '#') {
-            number = 12;
-        } else {
-            number = ch - '0';
-        }
+        dp[index][left][right] = Math.min(dp(index+1, str, number, right) + dijkstra(left, number),
+                dp(index+1, str, left, number) + dijkstra(right, number));
 
-        // 왼손 움직이는 케이스
-        if (left != number) {
-            cost = Math.min(dp(index+1, str, number, right) + graph[left].get(number).getValue(), cost);
-        }
-
-        // 오른손 움직이는 케이스
-        if (left != number) {
-            cost = Math.min(dp(index+1, str, left, number) + graph[right].get(number).getValue() , cost);
-        }
-
-        return dp[index][left][right] = cost;
+        return dp[index][left][right];
     }
 
     /*
         최소 가중치로 노드를 순회해야함.
-        => 다익스트라로 비용을 계산하자
-        => dp로 각 비용을 계산해둬도 좋다.
+        => 다익스트라로 start -> target 까지 비용을 계산하자
      */
+    public static int dijkstra(int start, int number) {
+
+        // 같은 번호인 경우 가중치는 1
+        if (start == number) {
+            return 1;
+        }
+
+        int[] dist = new int[13];
+        boolean[] visited = new boolean[13];
+
+        Queue<Pair<Integer, Integer>> queue = new PriorityQueue<>(
+                Comparator.comparingInt(value -> value.getValue()));
+
+        queue.offer(new Pair<>(start, 0));
+
+        // 최소 갱신을 위해 max_value 셋팅
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[start] = 0;
+
+        while (!queue.isEmpty()) {
+            Pair<Integer, Integer> pair = queue.poll();
+
+            if (visited[pair.getKey()]) {
+                continue;
+            }
+
+            visited[pair.getKey()] = true;
+
+            for (Pair<Integer, Integer> next : graph[pair.getKey()]) {
+                if (dist[next.getKey()] > dist[pair.getKey()] + next.getValue()) {
+                    dist[next.getKey()] = dist[pair.getKey()] + next.getValue();
+
+                    queue.offer(next);
+                }
+            }
+        }
+
+        return dist[number];
+    }
+
 //    static List<Pair<Integer, Integer>>[] graph;
 //    static Map<Integer, Pair<Integer, Integer>> keypad;
 
@@ -186,55 +209,4 @@ public class day80 {
 //        return answer;
 //    }
 //
-//    public static int dijkstra(int start, char target) {
-//
-//        // 같은 번호인 경우 가중치는 1
-//        if (start == Integer.parseInt(String.valueOf(target))) {
-//            return 1;
-//        }
-//
-//        int number = 0;
-//
-//        if (target == '0') {
-//            number = 10;
-//        } else if (target == '*') {
-//            number = 11;
-//        } else if (target == '#') {
-//            number = 12;
-//        } else {
-//            number = Integer.parseInt(String.valueOf(target));
-//        }
-//
-//        int[] dist = new int[13];
-//        boolean[] visited = new boolean[13];
-//
-//        Queue<Pair<Integer, Integer>> queue = new PriorityQueue<>(
-//                Comparator.comparingInt(value -> value.getValue()));
-//
-//        queue.offer(new Pair<>(start, 0));
-//
-//        // 최소 갱신을 위해 max_value 셋팅
-//        Arrays.fill(dist, Integer.MAX_VALUE);
-//        dist[start] = 0;
-//
-//        while (!queue.isEmpty()) {
-//            Pair<Integer, Integer> pair = queue.poll();
-//
-//            if (visited[pair.getKey()]) {
-//                continue;
-//            }
-//
-//            visited[pair.getKey()] = true;
-//
-//            for (Pair<Integer, Integer> next : graph[pair.getKey()]) {
-//                if (dist[next.getKey()] > dist[pair.getKey()] + next.getValue()) {
-//                    dist[next.getKey()] = dist[pair.getKey()] + next.getValue();
-//
-//                    queue.offer(next);
-//                }
-//            }
-//        }
-//
-//        return dist[number];
-//    }
 }
