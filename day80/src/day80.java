@@ -14,10 +14,12 @@ public class day80 {
         4 5 6
         7 8 9
         * 0 #
+
      */
     public static void main(String[] args) {
 //        String numbers = "1756";
         String numbers = "5123";
+        //numbers 는 아라비아 숫자만 들어온다... 특문 고려 안해도 됨..
         System.out.printf(solution(numbers)+"");
     }
 
