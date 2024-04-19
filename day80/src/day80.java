@@ -1,6 +1,7 @@
 import javafx.util.Pair;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 
+import java.text.BreakIterator;
 import java.util.*;
 
 public class day80 {
@@ -20,9 +21,94 @@ public class day80 {
         System.out.printf(solution(numbers)+"");
     }
 
+
+    static List<Pair<Integer, Integer>>[] graph;
+    static Map<Integer, Pair<Integer, Integer>> keypad;
+    static int[][][] dp;
+
     public static int solution(String numbers) {
         int answer = 0;
+        int[][] key = {{1,2,3},{4,5,6},{7,8,9},{11,10,12}};
+
+        dp = new int[numbers.length()][13][13];
+        graph = new ArrayList[13];
+        keypad = new HashMap<>();
+
+        for (int i=0; i<=12; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        // init cost 계산하기
+        for (int i=0; i<=3; i++) {
+            for (int j=0; j<=2; j++) {
+
+                keypad.put(key[i][j], new Pair<>(i,j));
+                graph[key[i][j]].add(new Pair<>(key[i][j], 1));
+
+                if (j-1 >= 0) {
+                    graph[key[i][j]].add(new Pair<>(key[i][j-1], 2));
+                }
+                if (j+1 <= 2) {
+                    graph[key[i][j]].add(new Pair<>(key[i][j+1], 2));
+                }
+                if (i-1 >= 0) {
+                    graph[key[i][j]].add(new Pair<>(key[i-1][j], 2));
+                }
+                if (i+1 <= 3) {
+                    graph[key[i][j]].add(new Pair<>(key[i+1][j], 2));
+                }
+                if (j-1 >= 0 && i-1 >= 0) {
+                    graph[key[i][j]].add(new Pair<>(key[i-1][j-1], 3));
+                }
+                if (j+1 <= 2 && i+1 <= 3) {
+                    graph[key[i][j]].add(new Pair<>(key[i+1][j+1], 3));
+                }
+                if (i-1 >= 0 && j+1 <= 2) {
+                    graph[key[i][j]].add(new Pair<>(key[i-1][j+1], 3));
+                }
+                if (i+1 <= 3 && j-1 >= 0) {
+                    graph[key[i][j]].add(new Pair<>(key[i+1][j-1], 3));
+                }
+            }
+        }
+
         return answer;
+    }
+
+    public static int dp(int index, String str, int left, int right) {
+
+        if (index == str.length()) {
+            return 0;
+        }
+
+        // 방문 여부 체크
+        if (dp[index][left][right] != 0) {
+            return dp[index][left][right];
+        }
+
+        int cost = Integer.MAX_VALUE;
+        char ch = str.charAt(index);
+
+        int number = 0;
+        if (ch == '*') {
+            number = 11;
+        } else if (ch == '#') {
+            number = 12;
+        } else {
+            number = ch - '0';
+        }
+
+        // 왼손 움직이는 케이스
+        if (left != number) {
+            cost = Math.min(dp(index+1, str, number, right) + graph[left].get(number).getValue(), cost);
+        }
+
+        // 오른손 움직이는 케이스
+        if (left != number) {
+            cost = Math.min(dp(index+1, str, left, number) + graph[right].get(number).getValue() , cost);
+        }
+
+        return dp[index][left][right] = cost;
     }
 
     /*
