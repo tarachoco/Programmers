@@ -75,6 +75,7 @@ public class day80 {
 
     /*
         dp를 통해 왼손과 오른손을 이동 했을 때의 최소 비용을 계산하자
+        왼손과 오른손은 같은 자리에 있을 수 없다
      */
     public static int dp(int index, String str, int left, int right) {
 
