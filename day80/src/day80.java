@@ -15,16 +15,15 @@ public class day80 {
      */
     public static void main(String[] args) {
 //        String numbers = "1756";
-        String numbers = "5123";
+//        String numbers = "5123";
+        String numbers = "09876543210";
         //numbers 는 아라비아 숫자만 들어온다... 특문 고려 안해도 됨..
-        System.out.printf(solution(numbers)+"");
+        System.out.printf(solution2(numbers)+"");
     }
 
-
     static List<Pair<Integer, Integer>>[] graph;
-    static int[][][] dp;
-
-    public static int solution(String numbers) {
+    public static int[][][] dp;
+    public static int solution2(String numbers) {
         int answer = 0;
         int[][] key = {{1,2,3},{4,5,6},{7,8,9},{11,10,12}};
 
@@ -91,9 +90,17 @@ public class day80 {
 
         char ch = str.charAt(index);
         int number = ch - '0';
+        int cost = Integer.MAX_VALUE;
 
-        dp[index][left][right] = Math.min(dp(index+1, str, number, right) + dijkstra(left, number),
-                dp(index+1, str, left, number) + dijkstra(right, number));
+        if (left != number) {
+            cost = Math.min(cost, dp(index+1, str, left, number) + dijkstra(right, number));
+        }
+
+        if (right != number) {
+            cost = Math.min(cost, dp(index+1, str, number, right) + dijkstra(left, number));
+        }
+
+        dp[index][left][right] = cost;
 
         return dp[index][left][right];
     }
@@ -103,6 +110,15 @@ public class day80 {
         => 다익스트라로 start -> target 까지 비용을 계산하자
      */
     public static int dijkstra(int start, int number) {
+
+        // 숫자 0이 10으로 들어가서 변환 필요..
+        if (number == 0) {
+            number = 10;
+        }
+
+        if (start == 0) {
+            start = 10;
+        }
 
         // 같은 번호인 경우 가중치는 1
         if (start == number) {
