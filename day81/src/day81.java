@@ -11,6 +11,15 @@ public class day81 {
         System.out.printf(""+solution(storey));
     }
 
+    /*
+        (int)Math.log10(213)+1
+        추가로 위를 통해 자릿수를 쉽게 구할 수 있음..
+        소수 제거 후 1을 더해주자.
+        1은 10^0
+        10 은 10^1
+        100은 10^2
+        50은 1.69 ..
+     */
     public static int solution(int storey) {
         int answer = 0;
         Stack<Integer> stack = new Stack<>();
