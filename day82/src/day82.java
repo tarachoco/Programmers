@@ -15,6 +15,7 @@ public class day82 {
           다 |  1 | 1 | 1
           철 |  5 | 1 | 1
           돌 | 25 | 5 | 1
+          광석 5개씩 묶어 피로도 계산후 내림차로 정렬하여 다이아 곡괭이부터 사용하자
      */
     public static int solution(int[] picks, String[] minerals) {
         int answer = 0;
