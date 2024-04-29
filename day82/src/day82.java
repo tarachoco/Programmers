@@ -15,9 +15,58 @@ public class day82 {
           다 |  1 | 1 | 1
           철 |  5 | 1 | 1
           돌 | 25 | 5 | 1
+
+          5씩 묶어 최대 피로도를 구한다.
+          내림차 순으로 정렬 후 피도로를 구한다.
      */
     public static int solution(int[] picks, String[] minerals) {
         int answer = 0;
+        //마인이 작업을 끝내기까지 필요한 최소한의 피로도를 return
+
+        int cnt = Math.min(minerals.length/5+1, picks[0]+picks[1]+picks[2]);
+        int[][] group = new int[cnt][3]; // 광물별 피로도 계산산
+
+       int dp=0, ip=0, sp=0;
+
+        for(int i=0; i<minerals.length; i+=5){
+
+            if(i/5==cnt){
+                break;
+            }
+
+            for(int j=i; j<i+5; j++){
+
+                switch (minerals[j]) {
+                    case "diamond":
+                        dp += 1;
+                        ip += 5;
+                        sp += 25;
+                        break;
+                    case "iron":
+                        dp += 1;
+                        ip += 1;
+                        sp += 5;
+                        break;
+                    default:
+                        dp += 1;
+                        ip += 1;
+                        sp += 1;
+                        break;
+                }
+
+                if(j==minerals.length-1){
+                    break;
+                }
+
+            }
+
+            group[i/5][0] = dp;
+            group[i/5][1] = ip;
+            group[i/5][2] = sp;
+
+            dp = ip = sp = 0;
+        }
+        
         return answer;
     }
 }
