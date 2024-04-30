@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class day82 {
     /*
         광물 캐기
@@ -20,7 +23,6 @@ public class day82 {
      */
     public static int solution(int[] picks, String[] minerals) {
         int answer = 0;
-        //마인이 작업을 끝내기까지 필요한 최소한의 피로도를 return
 
         int cnt = Math.min(minerals.length/5+1, picks[0]+picks[1]+picks[2]);
         int[][] group = new int[cnt][3]; // 광물별 피로도 계산산
@@ -65,7 +67,32 @@ public class day82 {
 
             dp = ip = sp = 0;
         }
-        
+
+        Arrays.sort(group, (o1, o2) -> o2[2] - o1[2]);
+        for(int i=0; i<cnt; i++){
+
+            // 다이아
+            if(picks[0] != 0){
+                answer += group[i][0];
+                picks[0]--;
+                continue;
+            }
+
+            // 철
+            if(picks[1] != 0){
+                answer += group[i][1];
+                picks[1]--;
+                continue;
+            }
+
+            // 돌
+            if(picks[2] != 0) {
+                answer += group[i][2];
+                picks[2]--;
+            }
+
+        }
+
         return answer;
     }
 }
