@@ -25,7 +25,7 @@ public class day82 {
         int answer = 0;
 
         int cnt = Math.min(minerals.length/5+1, picks[0]+picks[1]+picks[2]);
-        int[][] group = new int[cnt][3]; // 광물별 피로도 계산산
+        int[][] group = new int[cnt][3]; // 광물별 피로도 계산
 
        int dp=0, ip=0, sp=0;
 
@@ -37,6 +37,7 @@ public class day82 {
 
             for(int j=i; j<i+5; j++){
 
+                // 광물을 캐는데 각 곡괭이별 드는 피로도를 계산하여 group[0], [1], [2]에 담는다.
                 switch (minerals[j]) {
                     case "diamond":
                         dp += 1;
@@ -62,7 +63,7 @@ public class day82 {
             }
 
             group[i/5][0] = dp;
-            group[i/5][1] = ip;
+            group[i/5][1] = ip; 
             group[i/5][2] = sp;
 
             dp = ip = sp = 0;
