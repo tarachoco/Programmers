@@ -25,7 +25,7 @@ public class day83 {
         dp[0] = 1;
         for (int i = 0; i < money.length; i++) {
             for (int j = money[i]; j <= n; j++) {
-                // 각 money별 경우의 수를 계산에 더해주는 방식
+                // 각 money[i]별 경우의 수를 계산해 더해주는 방식
                 // money[i]가 1일 경우...
                 // 1,1,1,1,1,1
                 // money[i]가 2일 경우...
