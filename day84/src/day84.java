@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class day84 {
@@ -10,17 +7,33 @@ public class day84 {
         https://school.programmers.co.kr/learn/courses/30/lessons/135807
      */
     public static void main(String[] args) {
+        int[] A = {14, 35, 119};
+        int[] B = {18, 30, 102};
 
+        System.out.printf(""+solution(A, B));
     }
 
     public static int solution(int[] arrayA, int[] arrayB) {
         int answer = 0;
 
-        int gcd = gcd(arrayA);
-        List<Integer> cds = new ArrayList<>();
-        IntStream.rangeClosed(1, gcd)
-                .filter(i -> gcd % i == 0)
-                .forEach(i -> cds.add(i));
+        int gcdA = gcd(arrayA);
+        int gcdB = gcd(arrayB);
+
+        for ( int num:arrayB ) {
+            if ( num%gcdA==0 ) {
+                gcdA = 0;
+            }
+        }
+
+       answer = Math.max(answer, gcdA);
+
+        for ( int num:arrayA ) {
+            if ( num%gcdB==0 ) {
+                gcdB = 0;
+            }
+        }
+
+       answer = Math.max(answer, gcdB);
 
         return answer;
     }
