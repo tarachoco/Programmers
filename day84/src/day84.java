@@ -13,6 +13,9 @@ public class day84 {
         System.out.printf(""+solution(A, B));
     }
 
+    /*
+        A와 B 최대공약수를 구해 각 조건에 맞는 최대 값을 구한다.
+     */
     public static int solution(int[] arrayA, int[] arrayB) {
         int answer = 0;
 
