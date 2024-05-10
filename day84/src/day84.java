@@ -25,6 +25,7 @@ public class day84 {
         for ( int num:arrayB ) {
             if ( num%gcdA==0 ) {
                 gcdA = 0;
+                break;
             }
         }
 
@@ -33,6 +34,7 @@ public class day84 {
         for ( int num:arrayA ) {
             if ( num%gcdB==0 ) {
                 gcdB = 0;
+                break;
             }
         }
 
