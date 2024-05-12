@@ -19,6 +19,7 @@ public class day84 {
     public static int solution(int[] arrayA, int[] arrayB) {
         int answer = 0;
 
+        // 배열의 최대공약수를 구한다.
         int gcdA = gcd(arrayA);
         int gcdB = gcd(arrayB);
 
