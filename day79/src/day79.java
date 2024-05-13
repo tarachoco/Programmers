@@ -79,6 +79,7 @@ public class day79 {
             return dp[operation][start][end];
         }
 
+        // 방문한 값인 경우 기존 값을 재사용한다.
         if (visited[operation][start][end]) {
             return dp[operation][start][end];
         } else {
