@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class day85 {
     /*
@@ -24,26 +23,26 @@ public class day85 {
         int[] answer = new int[2];
 
         // #1 중복 제거한 보석 종류 구하기
-        Set<String> kinds = Arrays.stream(gems).collect(Collectors.toSet());
+        int kinds = (int) Arrays.stream(gems).distinct().count();
         Set<String> temp = new HashSet<>();
 
         int start = 0;
         int end = 0;
-        int range = Integer.MAX_VALUE;
+        int min = Integer.MAX_VALUE;
 
         while (end < gems.length) {
 
             temp.add(gems[end]);
 
-            if (temp.size() == kinds.size()) {
-                if (range > (end - start)) {
-                    range = end - start;
-                    answer[0] = start+1;
-                    answer[1] = end+1;
+            if (temp.size() == kinds) {
+                if (min > (end - start)) {
+                    min = end - start;
+                    answer[0] = start + 1;
+                    answer[1] = end + 1;
                 }
             }
 
-            if (end > start && gems[end] == gems[start]) {
+            if (end > start && gems[end].equals(gems[start])) {
                 start++;
                 end = start+1;
                 temp.clear();
@@ -51,7 +50,6 @@ public class day85 {
             } else {
                 end++;
             }
-
         }
 
         return answer;
