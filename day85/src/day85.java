@@ -23,34 +23,50 @@ public class day85 {
         int[] answer = new int[2];
 
         // #1 중복 제거한 보석 종류 구하기
-        int kinds = (int) Arrays.stream(gems).distinct().count();
-        Set<String> temp = new HashSet<>();
-
+        int kind = (int) Arrays.stream(gems).distinct().count();
+//        Set<String> temp = new HashSet<>();
+//
         int start = 0;
-        int end = 0;
         int min = Integer.MAX_VALUE;
 
-        while (end < gems.length) {
+         Map<String, Integer> map = new HashMap<>();
 
-            temp.add(gems[end]);
+        for (int end = 0; end < gems.length; end++) {
+            map.put(gems[end], map.getOrDefault(gems[end], 0) + 1);
 
-            if (temp.size() == kinds) {
-                if (min > (end - start)) {
-                    min = end - start;
-                    answer[0] = start + 1;
-                    answer[1] = end + 1;
-                }
+            while (map.get(gems[start]) > 1) {
+                map.put(gems[start], map.get(gems[start]) - 1);
+                start++;
             }
 
-            if (end > start && gems[end].equals(gems[start])) {
-                start++;
-                end = start+1;
-                temp.clear();
-                temp.add(gems[start]);
-            } else {
-                end++;
+            if (map.size() == kind && min > (end - start)) {
+                min = end - start;
+                answer[0] = start + 1;
+                answer[1] = end + 1;
             }
         }
+//
+//        while (end < gems.length) {
+//
+//            temp.add(gems[end]);
+//
+//            if (temp.size() == kinds) {
+//                if (min > (end - start)) {
+//                    min = end - start;
+//                    answer[0] = start + 1;
+//                    answer[1] = end + 1;
+//                }
+//            }
+//
+//            if (end > start && gems[end].equals(gems[start])) {
+//                start++;
+//                end = start+1;
+//                temp.clear();
+//                temp.add(gems[start]);
+//            } else {
+//                end++;
+//            }
+//        }
 
         return answer;
     }
