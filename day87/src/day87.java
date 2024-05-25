@@ -28,6 +28,7 @@ public class day87 {
             // 이전 바위
             int prevRock = 0;
             for (int i=0; i<rocks.length; i++) {
+                //이전 바위 위치 체크하여 남은 거리 계산
                 if (rocks[i] - prevRock < mid) {
                     count++;
                 } else {
