@@ -29,6 +29,7 @@ public class day86 {
                 count += mid / times[i];
             }
 
+            // 최대로 가능한 값 찾기위해 left, right 조정
             if (count < n) {
                 left = mid + 1;
             } else {
