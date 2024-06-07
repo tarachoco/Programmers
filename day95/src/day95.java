@@ -13,6 +13,7 @@ public class day95 {
     }
 
     public static int dfs(int n, int brackets) {
+        // 닫힘 괄호가 더 많으면 잘못된 괄호
         if (brackets < 0 || brackets > n) {
             return 0;
         }
