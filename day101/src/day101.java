@@ -6,7 +6,7 @@ public class day101 {
         https://school.programmers.co.kr/learn/courses/30/lessons/42746
      */
     public static void main(String[] args) {
-        int[] numbers = {3, 30, 34, 5, 9};
+        int[] numbers = {0, 0, 0};
         System.out.printf(""+solution(numbers));
     }
 
@@ -16,6 +16,10 @@ public class day101 {
 
         for (int i=0; i<numbers.length; i++) {
             queue.offer(String.valueOf(numbers[i]));
+        }
+
+        if (queue.peek().equals("0")) {
+            return "0";
         }
 
         StringBuilder sb = new StringBuilder();
