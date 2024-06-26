@@ -48,6 +48,7 @@ public class day106 {
         }
     }
 
+    // 에라토스테네스 체
     public static boolean isPrime(String s) {
         int n = Integer.parseInt(s);
 
