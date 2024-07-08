@@ -10,29 +10,21 @@ public class day111 {
 //        int k = 3;
 //        int m = 4;
 //        int[] score = {1,2,3,1,2,3,1};
-        int k = 4;
-        int m = 3;
-        int[] score = {4, 1, 2, 2, 4, 4, 4, 4, 1, 2, 4, 2};
+//        int k = 4;
+//        int m = 3;
+//        int[] score = {4, 1, 2, 2, 4, 4, 4, 4, 1, 2, 4, 2};
+        int k = 3;
+        int m = 10;
+        int[] score = {1, 2, 3, 1,1,1,1};
         System.out.printf(""+solution(k, m, score));
     }
     public static int solution(int k, int m, int[] score) {
         int answer = 0;
 
-        PriorityQueue<Integer> queue = new PriorityQueue<>((o1, o2) -> o2 - o1);
-        Arrays.stream(score).forEach(s-> queue.offer(s));
+        Arrays.sort(score);
 
-        int min = Integer.MAX_VALUE;
-
-        while (!queue.isEmpty()) {
-            for (int i=0; i<m; i++) {
-                min = Math.min(queue.poll(), min);
-            }
-
-            answer += min * m;
-
-            if (queue.size() < m) {
-                break;
-            }
+        for(int i = score.length; i >= m; i -= m){
+            answer += score[i - m] * m;
         }
 
         return answer;
