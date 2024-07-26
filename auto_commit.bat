@@ -21,7 +21,7 @@ REM 커밋을 수행합니다.
 git commit -m %COMMIT_MSG%
 
 REM 원격 저장소에 푸시합니다.
-git push origin main
+git push origin master
 
 REM 원래 디렉터리로 돌아갑니다.
 cd /d %CURRENT_DIR%
