@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 >nul
 REM 스크립트 시작
 setlocal
 
