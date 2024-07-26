@@ -1,0 +1,2 @@
+public class day123 {
+}
