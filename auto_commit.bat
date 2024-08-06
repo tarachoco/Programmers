@@ -23,7 +23,7 @@ if defined FIRST_FILE (
     git add "!FIRST_FILE!"
 
     REM 커밋 메시지를 설정합니다.
-    set COMMIT_MSG=자동 커밋 메시지: %date% %time%
+    set COMMIT_MSG=커밋 메시지: %date% %time%
 
     REM 커밋을 수행합니다.
     echo git commit -m "!COMMIT_MSG!"
