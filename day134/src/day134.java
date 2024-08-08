@@ -8,6 +8,7 @@ public class day134 {
     }
 
     public static int solution(int num) {
+
         int answer = 0;
 
         if ( num == 1 ) {
