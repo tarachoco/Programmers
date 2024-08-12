@@ -22,7 +22,7 @@ public class day135 {
         int destinationY = board[0].length;
 
         int[][][] dp = new int[destinationY][destinationX][2];
-        boolean[][][] visited = new boolean[][][];
+        boolean[][][] visited = new boolean[destinationY][destinationX][2];
 
         for (int i=0; i<destinationY; i++) {
             for (int j=0; j<destinationX; j++) {
