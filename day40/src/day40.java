@@ -23,6 +23,7 @@ public class day40 {
                     cnt++;
                 }
             }
+            // 10진수를 2진수로 변환
             s = Integer.toBinaryString(cnt);
             answer[0]++;
         }
