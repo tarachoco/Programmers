@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Stack;
 
 public class day11 {
     /* 뒤에서부터 큰 수 찾기 */
@@ -8,22 +9,19 @@ public class day11 {
     }
 
     public static int[] solution(int numbers[]) {
-        int numbers_len = numbers.length;
-        int[] answer = new int[numbers_len];
+        int[] answer = new int[numbers.length];
+		Arrays.fill(answer, -1);
 
-        Arrays.fill(answer, -1);
+		Stack<Integer> stack = new Stack<>();
 
-        for (int i=0; i<numbers_len; i++) {
-            for (int j=i+1; j<numbers_len; j++) {
-                if (numbers[i] < numbers[j]) {
-                    answer [i] = numbers[j];
-                    break;
-                }
-            }
-        }
+		for (int i = 0; i < numbers.length; i++) {
+			while (!stack.isEmpty() && numbers[i] > numbers[stack.peek()]) {
+				answer[stack.pop()] = numbers[i];
+			}
 
-        Arrays.stream(answer).forEach(System.out::println);
+			stack.push(i);
+		}
 
-        return answer;
+		return answer;
     }
 }

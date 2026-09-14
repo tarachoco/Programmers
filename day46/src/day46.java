@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class day46 {
@@ -8,7 +9,7 @@ public class day46 {
         LZW 압축
      */
     public static void main(String[] args) {
-        System.out.println(solution("KAKAO"));
+        Arrays.stream(solution("ABABABABABABABAB")).forEach(System.out::println);
     }
 
     public static int[] solution(String msg) {
@@ -49,7 +50,7 @@ public class day46 {
             }
 
             int x = dictionary.indexOf(sb.toString());
-            if (x != -1) {
+            if (x > -1) {
                 list.add(x);
             }
 
@@ -60,6 +61,7 @@ public class day46 {
 
         answer = list.stream()
                 .mapToInt(Integer::intValue)
+                .map(i->i+1)
                 .toArray();
 
         return answer;
